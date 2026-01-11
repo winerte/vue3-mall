@@ -23,12 +23,12 @@
                 <el-form>
                     <!-- 用户名输入框 -->
                     <el-form-item class="mb-6">
-                        <el-input placeholder="请输入用户名" class="w-full" prefix-icon="User"></el-input>
+                        <el-input placeholder="请输入用户名" class="w-full" :prefix-icon="User"></el-input>
                     </el-form-item>
 
                     <!-- 密码输入框 -->
                     <el-form-item class="mb-8">
-                        <el-input type="password" placeholder="请输入密码" class="w-full" prefix-icon="Lock"
+                        <el-input type="password" placeholder="请输入密码" class="w-full" :prefix-icon="Lock"
                             show-password></el-input>
                     </el-form-item>
 
@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-
+import { User, Lock } from '@element-plus/icons-vue'
 </script>
 
 <style scoped>
