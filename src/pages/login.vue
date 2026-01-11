@@ -48,6 +48,8 @@
 <script setup lang="ts">
 
 import {ref, reactive } from 'vue'
+import { ElMessage } from 'element-plus'
+import { longin } from '../api/mannger'
 const lginForm = reactive({
     username: '',
     password: ''
@@ -60,7 +62,7 @@ const rules = {
     ],
     password: [
         { required: true, message: '请输入密码', trigger: 'blur' },
-        { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger:"blur" }
+        { min: 5, max: 20, message: '长度在 6 到 20 个字符', trigger:"blur" }
     ]
 }
 
@@ -72,7 +74,14 @@ const loginBth = () => {
             console.log('验证失败')
             return false
         }
-        console.log('提交成功')
+        longin(lginForm.username,lginForm.password).then(res=>{
+          
+                console.log(res.data)
+                ElMessage.success('登录成功')
+            
+        }).catch(err=>{
+            ElMessage.error(err.response.data.msg|| '请求失败') 
+        })
     })
 }
    
