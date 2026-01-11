@@ -35,7 +35,8 @@
                     <el-form-item>
                         <el-button type="primary"
                             class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-300"
-                            @click="loginBth">
+                            @click="loginBth"
+                            :loading>
                             登录
                         </el-button>
                     </el-form-item>
@@ -49,10 +50,11 @@
 
 import {ref, reactive } from 'vue'
 import { ElMessage } from 'element-plus'
-import { longin } from '../api/mannger'
+import { longin,getInfo } from '～/api/mannger'
+import { fa } from 'element-plus/es/locales.mjs'
 const lginForm = reactive({
-    username: '',
-    password: ''
+    username: 'admin',
+    password: 'admin'
 })
 
 const rules = {
@@ -67,6 +69,7 @@ const rules = {
 }
 
 const ruleForm = ref()
+const loading = ref(false)
 
 const loginBth = () => {
     ruleForm.value.validate((valid)=>{
@@ -74,13 +77,20 @@ const loginBth = () => {
             console.log('验证失败')
             return false
         }
+        loading.value = true
+        localStorage.removeItem('token')
         longin(lginForm.username,lginForm.password).then(res=>{
           
-                console.log(res.data)
+                console.log(res.token)
+                localStorage.setItem('token',res.token)
+
+                getInfo().then(res2=>{
+                    console.log(res2)
+                })
                 ElMessage.success('登录成功')
             
-        }).catch(err=>{
-            ElMessage.error(err.response.data.msg|| '请求失败') 
+        }).finally(()=>{
+            loading.value = false
         })
     })
 }
