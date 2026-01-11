@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.18",
     "element-plus": "^2.13.1",
+    "tailwindcss": "^4.1.18",
     "vue": "^3.4.21",
     "vue-router": "^4.6.4"
   },
@@ -19,7 +21,6 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-plugin-windicss": "^1.9.4",
-    "vue-tsc": "^2.0.6",
-    "windicss": "^3.5.6"
+    "vue-tsc": "^2.0.6"
   }
 }

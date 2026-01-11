@@ -1,6 +1,6 @@
 import { createMemoryHistory, createWebHistory,createRouter } from 'vue-router'
 import Index from '～/pages/index.vue'
-import About from '～/pages/about.vue'
+import Login from '～/pages/login.vue'
 import NotFound from '～/pages/404.vue'
 
 
@@ -8,9 +8,9 @@ import NotFound from '～/pages/404.vue'
 const routes = [
   { path: '/', component: Index },
   {
-    path: '/about',
+    path: '/login',
 
-    component: About
+    component: Login
   },
   { path: '/:pathMatch(.*)*', component: NotFound },
 ]
