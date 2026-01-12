@@ -48,10 +48,10 @@
 
 <script setup lang="ts">
 
-import {ref, reactive } from 'vue'
-import { ElMessage } from 'element-plus'
-import { longin,getInfo } from '～/api/mannger'
-import { fa } from 'element-plus/es/locales.mjs'
+import { ref, reactive } from 'vue'
+import { login } from '../api/manager'
+import { useUserStore } from '../store/manager/userStore'
+import router from '../router'
 const lginForm = reactive({
     username: 'admin',
     password: 'admin'
@@ -71,24 +71,19 @@ const rules = {
 const ruleForm = ref()
 const loading = ref(false)
 
+const userStore = useUserStore()
 const loginBth = () => {
-    ruleForm.value.validate((valid)=>{
+    ruleForm.value.validate((valid: boolean)=>{
         if(!valid) {
             console.log('验证失败')
             return false
         }
         loading.value = true
         localStorage.removeItem('token')
-        longin(lginForm.username,lginForm.password).then(res=>{
-          
-                console.log(res.token)
-                localStorage.setItem('token',res.token)
-
-                getInfo().then(res2=>{
-                    console.log(res2)
-                })
-                ElMessage.success('登录成功')
-            
+        login(lginForm.username,lginForm.password).then((res: any)=>{
+            localStorage.setItem('token', res.token)
+            userStore.token = res.token
+            router.push('/')
         }).finally(()=>{
             loading.value = false
         })

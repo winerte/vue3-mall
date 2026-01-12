@@ -1,6 +1,6 @@
-import request from '～/utils/request'
+import request from '../utils/request'
 
-export function longin(username:string,password:string){
+export function login(username:string,password:string){
     return request.post('/admin/login',{
         username,
         password

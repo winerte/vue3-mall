@@ -19,5 +19,6 @@ export default defineConfig({
       },
     }
   },
-  plugins: [tailwindcss(),vue()],
+  plugins: [tailwindcss(), vue()],
+ 
 })

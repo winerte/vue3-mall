@@ -5,6 +5,8 @@ import 'element-plus/dist/index.css'
 import App from './App.vue'
 import router from './router'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import pinia from './store'
+import './permission' // 添加这行，
 
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -13,4 +15,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 
 app.use(router)
 app.use(ElementPlus)
+app.use(pinia)
 app.mount('#app')
