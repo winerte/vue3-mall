@@ -7,7 +7,8 @@ router.beforeEach((to, _from, next) => {
     nprogress.start();
     const userStore = useUserStore();
     const token = userStore.token;
-    
+    document.title ='XX后台管理系统-'+ to.meta.title
+  
     // 1. 如果已登录且访问的是登录页，重定向到首页
     if (token && to.path === '/login') {
         next('/');
