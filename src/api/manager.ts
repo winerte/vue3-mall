@@ -1,3 +1,4 @@
+import { da } from 'element-plus/es/locales.mjs'
 import request from '../utils/request'
 
 export function login(username:string,password:string){
@@ -9,4 +10,12 @@ export function login(username:string,password:string){
 
 export function getInfo() {
     return request.post('/admin/getinfo')
+}
+
+export function updataPassword(data:any) {
+    return request.post('/admin/updatepassword',data)
+}
+
+export function logout() {
+    return request.post('/admin/logout')
 }
