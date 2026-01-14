@@ -31,7 +31,44 @@
             </el-dropdown>
         </div>
 
-        <el-drawer title="修改密码" v-model="drawer"  destroy-on-close :close-on-click-modal="false" :close-on-press-escape="false">
+        <FormDrawer 
+            ref="formDrawerRef" 
+            title="修改密码"   
+            destroy-on-close 
+            :close-on-click-modal="false" 
+            :close-on-press-escape="false"
+            @confirm="submitBtn"
+            @cancel="closeDrawer"
+        >
+            <el-form :model="formData" class="space-y-4">
+                <el-form-item label="旧密码" class="mb-4">
+                    <el-input 
+                        type="password"
+                        placeholder="请输入旧密码" 
+                        v-model="formData.oldpassword"
+                        show-password
+                    ></el-input>
+                </el-form-item>
+                <el-form-item label="新密码" class="mb-4">
+                    <el-input 
+                        type="password"
+                        placeholder="请输入新密码" 
+                        v-model="formData.password"
+                        show-password
+                    ></el-input>
+                </el-form-item>
+                <el-form-item label="确认密码" class="mb-4">
+                    <el-input 
+                        type="password"
+                        placeholder="请确认新密码" 
+                        v-model="formData.repassword"
+                        show-password
+                    ></el-input>
+                </el-form-item>
+            </el-form>
+        </FormDrawer>
+
+        <!-- <el-drawer title="修改密码" v-model="drawer"  destroy-on-close :close-on-click-modal="false" :close-on-press-escape="false">
         <el-form :model="formData">
             <el-form-item label="旧密码">
                 <el-input placeholder="请输入内容" v-model="formData.oldpassword"></el-input>
@@ -47,35 +84,80 @@
                 <el-button @click="drawer = false">取消</el-button>
             </el-form-item>
         </el-form>
-        </el-drawer>
+        </el-drawer> -->
 
 
     </div>
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '～/store/manager/userStore';
+import { useUserStore } from '../../store/manager/userStore';
 import { ref } from 'vue';
-import{updataPassword} from '../../api/manager'
+import { updatePassword } from '../../api/manager'
+// @ts-ignore: Vue component has no declaration file
+import FormDrawer from '../../components/FormDrawer.vue';
+import { ElMessage } from 'element-plus';
+
 const userStore = useUserStore();
-const editPassBtn = () => {
-    drawer.value = true;
-    
-};
-let drawer = ref(false);
 
-const submitBtn = () => {
-    updataPassword(formData.value).then(res => {
-        console.log(res);
-    });
-    drawer.value = false;
-};
-
+// 定义表单数据
 const formData = ref({
     oldpassword: '',
     password: '',
     repassword: ''
 });
+
+// 定义FormDrawer引用
+const formDrawerRef = ref<any>(null);
+
+// 打开修改密码抽屉
+const editPassBtn = () => {
+    if (formDrawerRef.value) {
+        formDrawerRef.value.open();
+    }
+};
+
+// 关闭修改密码抽屉
+const closeDrawer = () => {
+    if (formDrawerRef.value) {
+        formDrawerRef.value.close();
+    }
+};
+
+// 提交修改密码
+const submitBtn = () => {
+    // 表单验证
+    if (!formData.value.oldpassword) {
+        ElMessage.warning('请输入旧密码');
+        return;
+    }
+    if (!formData.value.password) {
+        ElMessage.warning('请输入新密码');
+        return;
+    }
+    if (formData.value.password !== formData.value.repassword) {
+        ElMessage.warning('两次输入的密码不一致');
+        return;
+    }
+    
+    // 调用API修改密码
+    updatePassword(formData.value)
+        .then(res => {
+            console.log('修改密码成功:', res);
+            ElMessage.success('修改密码成功');
+            closeDrawer();
+            // 重置表单
+            formData.value = {
+                oldpassword: '',
+                password: '',
+                repassword: ''
+            };
+        })
+        .catch(err => {
+            console.error('修改密码失败:', err);
+            ElMessage.error('修改密码失败');
+        });
+};
 </script>
 
 <style scoped>

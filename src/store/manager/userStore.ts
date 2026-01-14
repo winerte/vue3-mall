@@ -2,10 +2,18 @@ import { defineStore } from 'pinia';
 import { getInfo } from '../../api/manager';
 import { ElMessage } from 'element-plus';
 
+// 定义用户信息类型
+interface UserInfo {
+    id?: number;
+    username?: string;
+    avatar?: string;
+    [key: string]: any;
+}
+
 export const useUserStore = defineStore('user', {
     state: () => ({
         token: localStorage.getItem('token') || '',
-        userInfo: {},
+        userInfo: {} as UserInfo,
     }),
     getters: {
     },
