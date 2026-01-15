@@ -36,7 +36,7 @@
                         <el-button type="primary"
                             class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 px-4 rounded-lg transition-colors duration-300"
                             @click="loginBth"
-                            :loading>
+                            :loading="loading">
                             登录
                         </el-button>
                     </el-form-item>
@@ -51,7 +51,7 @@
 import { ref, reactive } from 'vue'
 import { login } from '../api/manager'
 import { useUserStore } from '../store/manager/userStore'
-import router from '../router'
+import {router} from '../router'
 const lginForm = reactive({
     username: 'admin',
     password: 'admin'

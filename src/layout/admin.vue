@@ -11,7 +11,9 @@
                 </el-aside>
                 <el-main>
                     <FTagList></FTagList>
+                    <router-view></router-view>
                 </el-main>
+                
             </el-container>
         </el-container>
 

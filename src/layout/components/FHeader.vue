@@ -25,7 +25,7 @@
                 <template #dropdown>
                     <el-dropdown-menu>
                         <el-dropdown-item @click="editPassBtn">修改密码</el-dropdown-item>
-                        <el-dropdown-item>退出登录</el-dropdown-item>
+                        <el-dropdown-item @click='logoutBtn'>退出登录</el-dropdown-item>
                     </el-dropdown-menu>
                 </template>
             </el-dropdown>
@@ -93,7 +93,7 @@
 <script setup lang="ts">
 import { useUserStore } from '../../store/manager/userStore';
 import { ref } from 'vue';
-import { updatePassword } from '../../api/manager'
+import { logout, updatePassword } from '../../api/manager'
 // @ts-ignore: Vue component has no declaration file
 import FormDrawer from '../../components/FormDrawer.vue';
 import { ElMessage } from 'element-plus';
@@ -157,6 +157,17 @@ const submitBtn = () => {
             console.error('修改密码失败:', err);
             ElMessage.error('修改密码失败');
         });
+};
+
+const logoutBtn = () => {
+    logout().then(res => {
+        console.log('退出登录成功:', res);
+        ElMessage.success('退出登录成功');
+        userStore.logout();
+    }).catch(err => {
+        console.error('退出登录失败:', err);
+        ElMessage.error('退出登录失败');
+    });
 };
 </script>
 
