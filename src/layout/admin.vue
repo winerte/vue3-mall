@@ -12,7 +12,10 @@
                 <el-main>
                     <FTagList>
                     </FTagList>
+                    <Transition>
                     <router-view></router-view>
+                    </Transition>
+                   
                 </el-main>              
             </el-container>
         </el-container>
@@ -27,3 +30,15 @@ import FMenu from "./components/FMenu.vue";
 import FTagList from "./components/FTagList.vue";
 
 </script>
+
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
