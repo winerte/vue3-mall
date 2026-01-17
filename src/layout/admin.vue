@@ -10,10 +10,10 @@
                     <FMenu></FMenu>
                 </el-aside>
                 <el-main>
-                    <FTagList></FTagList>
+                    <FTagList>
+                    </FTagList>
                     <router-view></router-view>
-                </el-main>
-                
+                </el-main>              
             </el-container>
         </el-container>
 

@@ -7,6 +7,7 @@ import {router} from './router'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import pinia from './store'
 import './permission' // 添加这行，
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 // 全局错误处理
 console.log('App is starting...');
@@ -29,7 +30,7 @@ app.config.errorHandler = (err, vm, info) => {
 // 挂载应用
 app.use(router);
 app.use(ElementPlus);
-app.use(pinia);
+app.use(pinia.use(piniaPluginPersistedstate));
 
 console.log('App is mounting...');
 app.mount('#app');

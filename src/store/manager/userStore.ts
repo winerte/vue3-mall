@@ -26,6 +26,12 @@ export const useUserStore = defineStore('user', {
         token: localStorage.getItem('token') || '',
         userInfo: {} as UserInfo,
         menu: [] as MenuItem[],
+        tabList : [{
+            
+                name: '后台首页',
+                path: '/',
+            
+        }]
     }),
     getters: {
         // 获取格式化后的菜单数据
@@ -48,6 +54,7 @@ export const useUserStore = defineStore('user', {
             }
         },
 
+    
         logout() {
             localStorage.removeItem('token');
             this.token = '';
@@ -62,4 +69,9 @@ export const useUserStore = defineStore('user', {
             this.menu = [];
         },
     },
+    persist: {  // 添加持久化配置
+        key: 'user-store',  // 存储的 key
+        storage: localStorage,  // 存储方式
+        paths: ['tabList', 'token']  // 只持久化指定的字段
+    }
 });
