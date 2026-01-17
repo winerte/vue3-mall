@@ -11,6 +11,14 @@ import type { RouteRecordRaw } from 'vue-router';
 // 使用Vue Router的RouteRecordRaw类型
 const routes: RouteRecordRaw[] = [
   {
+    path: '/',
+    component: Admin,
+    name: '/',
+    meta: {
+      title: '首页'
+    }
+  },
+  {
     path: '/login',
     component: Login,
     name: 'login',
@@ -33,16 +41,12 @@ const routes: RouteRecordRaw[] = [
 const adminRoute: RouteRecordRaw = {
   path: '/',
   component: Admin,
-  name: 'admin',
+  name: '/',
   meta: {
     title: '首页'
   },
   children: [
-    // 默认子路由
-    {
-      path: '',
-      redirect: '/goods/list'
-    },
+   
     // 直接添加商品管理路由
     {
       path: '/goods/list',
@@ -93,9 +97,32 @@ export const router = createRouter({
 
 // 动态添加路由函数 - 现在所有路由都直接配置在admin的children中，所以不需要动态添加
 export function addRoutes(menus: any[]): boolean {
-  console.log('Routes are already configured in admin children, no need to add dynamically:', menus);
-  // 返回false表示没有添加新路由
-  return false;
+  let hasNewRoutes = false
+  // 找到并添加菜单
+  const findAndAddRoutesByMenus = (arr) => {
+    arr.forEach(e => {
+      // 通过路径去匹配，拿到动态数组里面的节点
+      let item = adminRoute.find(o => o.path == e.frontpath)
+      // 存在 并且 没有注册过
+      if (item && !router.hasRoute(item.path)) {
+        // console.log(item)
+        // 添加子路由
+        router.addRoute("admin", item)
+        hasNewRoutes = true
+      }
+      // 如果存在孩子，需要进行递归
+      if (e.child && e.child.length > 0) {
+        findAndAddRoutesByMenus(e.child)
+      }
+    })
+  }
+
+  findAndAddRoutesByMenus(menus)
+
+  // 查看所有路由
+  // console.log(router.getRoutes())
+
+  return hasNewRoutes
 }
 
 //export default router

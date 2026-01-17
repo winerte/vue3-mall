@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import { ElMessage } from 'element-plus';
 import { router, addRoutes } from '../../router';
+import {getInfo} from '../../api/manager'
+
 // 定义用户信息类型
 interface UserInfo {
     id?: number;
@@ -33,69 +35,16 @@ export const useUserStore = defineStore('user', {
     },
     actions: {
         async getUserInfo() {
+            console.log('开始获取用户信息...');
             try {
-                // 使用类型断言，因为我们在request.ts中已经通过响应拦截器处理了响应数据
-                let res;
-                // 强制使用模拟数据，确保菜单数据的一致性
-                console.log('Using mock data for menu');
-                res = {
-                    userInfo: { id: 1, username: 'admin' },
-                    menu: [
-                        {
-                            id: 1,
-                            frontpath: '/goods/list',
-                            name: 'goodsList',
-                            title: '商品管理',
-                            icon: 'Goods',
-                            child: []
-                        },
-                        {
-                            id: 2,
-                            frontpath: '/category/list',
-                            name: 'categoryList',
-                            title: '分类管理',
-                            icon: 'Category',
-                            child: []
-                        },
-                        {
-                            id: 3,
-                            frontpath: '',
-                            name: 'order',
-                            title: '订单管理',
-                            icon: 'Order',
-                            child: [
-                                {
-                                    id: 4,
-                                    frontpath: '/order/list',
-                                    name: 'orderList',
-                                    title: '订单列表',
-                                    icon: 'List',
-                                    child: []
-                                },
-                                {
-                                    id: 5,
-                                    frontpath: '/order/refund',
-                                    name: 'orderRefund',
-                                    title: '退款管理',
-                                    icon: 'Refund',
-                                    child: []
-                                }
-                            ]
-                        }
-                    ]
-                };
-                
-                // 根据实际响应数据结构调整
-                this.userInfo = res.userInfo || {};
-                this.menu = res.menu || [];
-                
-                // 调用addRoutes函数动态添加路由
-                if (this.menu.length > 0) {
-                    addRoutes(this.menu);
-                }
+                const response = await getInfo();
+                console.log('API 响应:', response);
+                // ... 其他逻辑
+                this.userInfo = response;
+                this.menu = response.menus;
             } catch (error) {
-                ElMessage.error('获取用户信息失败');
-                throw error; // 抛出错误，让permission.ts能够捕获
+                console.error('获取用户信息时发生错误:', error);
+                throw error;
             }
         },
 

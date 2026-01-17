@@ -89,9 +89,9 @@ const handleClose = (key: string, keyPath: string[]) => {
 
 // 组件挂载时获取菜单数据
 onMounted(() => {
-  if (menuList.value.length === 0) {
-    userStore.getUserInfo();
-  }
+  // if (menuList.value.length === 0) {
+  //   userStore.getUserInfo();
+  // }
 });
 </script>
 

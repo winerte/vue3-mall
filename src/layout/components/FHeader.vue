@@ -9,7 +9,7 @@
         <el-icon class="icon-btn">
             <fold />
         </el-icon>
-        <el-icon class="icon-btn">
+        <el-icon class="icon-btn" @click="handleRefresh">
             <refresh />
         </el-icon>
         <div class="ml-auto flex items-center">
@@ -169,6 +169,10 @@ const logoutBtn = () => {
         ElMessage.error('退出登录失败');
     });
 };
+
+const handleRefresh =() =>{
+    location.reload()
+}
 </script>
 
 <style scoped>

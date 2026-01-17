@@ -15,6 +15,7 @@ request.interceptors.request.use(function (config) {
     // 在发送请求之前做些什么
   let token = userStore.token
     if(token){
+      console.log('拦截器的token',token);
       config.headers.token = token
     }
     return config;
