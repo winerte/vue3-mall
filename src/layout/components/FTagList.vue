@@ -100,7 +100,7 @@ const tabChange = (tab:any) => {
 @import "tailwindcss";
 
 .tag-list {
-    @apply fixed flex items-center   h-10 px-4  z-50
+    @apply  flex items-center   h-10 px-4  z-1000
 }
 .tag-btn{
     @apply flex items-center justify-center w-10 h-10 ml-auto px-2  rounded

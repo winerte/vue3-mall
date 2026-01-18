@@ -90,6 +90,48 @@ const adminRoute: RouteRecordRaw = {
       meta: {
         title: '退款管理'
       }
+    }, {
+      path: '/comment/list',
+      name: 'commentList',
+      component: () => import('../pages/comment/list.vue'),
+      meta: {
+        title: '评价管理'
+      }
+    }, {
+      path: '/coupon/list',
+      name: 'couponList',
+      component: () => import('../pages/coupon/list.vue'),
+      meta: {
+        title: '优惠券'
+      }
+    }, {
+      path: '/image/list',
+      name: 'imageList',
+      component: () => import('../pages/image/list.vue'),
+      meta: {
+        title: '图片管理'
+      }
+    }, {
+      path: '/notice/list',
+      name: 'noticeList',
+      component: () => import('../pages/notice/list.vue'),
+      meta: {
+        title: '通知管理'
+      }
+    }, {
+      path: '/setting/base',
+      name: 'settingBase',
+      component: () => import('../pages/setting/base.vue'),
+      meta: {
+        title: '设置中心'
+      }
+    }, {
+      path: '/user/list',
+      name: 'userList',
+      component: () => import('../pages/user/list.vue'),
+      meta: {
+        title: '用户管理'
+      }
     }
   ] // 用于动态添加子路由
 }
