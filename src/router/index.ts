@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 import Login from '../pages/login.vue'
 import NotFound from '../pages/404.vue'
 import Admin from '../layout/admin.vue'
+import Index from '../pages/index.vue'
 
 
 
@@ -13,7 +14,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     component: Admin,
-    name: '/',
+    name: 'admin',
     meta: {
       title: '首页'
     }
@@ -41,12 +42,19 @@ const routes: RouteRecordRaw[] = [
 const adminRoute: RouteRecordRaw = {
   path: '/',
   component: Admin,
-  name: '/',
+  name: 'admin',
   meta: {
     title: '首页'
   },
   children: [
-   
+    {
+      path: '/',
+      component: Index,
+      name: '/',
+      meta: {
+        title: '首页'
+      }
+    },
     // 直接添加商品管理路由
     {
       path: '/goods/list',

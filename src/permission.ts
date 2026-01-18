@@ -34,7 +34,7 @@ router.beforeEach(async (to, _from, next) => {
             try {
                 // getUserInfo内部已经处理了路由添加，所以这里不需要再调用addRoutes
                  let res = await userStore.getUserInfo();
-                  addRoutes(res.menus)
+                  addRoutes(res.data.menus)
                 // 路由添加后，直接放行
                 next();
             } catch (error) {
