@@ -6,6 +6,7 @@
       router
       @open="handleOpen"
       @close="handleClose"
+      active-text-color="#ffd04b"
     >
       <!-- 递归渲染菜单 -->
       <template v-for="menu in menuList" :key="menu.id">

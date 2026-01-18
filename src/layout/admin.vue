@@ -12,7 +12,7 @@
                 <el-main>
                     <FTagList>
                     </FTagList>
-                    <Transition>
+                    <Transition name="fade">
                     <router-view></router-view>
                     </Transition>
                    
@@ -32,13 +32,14 @@ import FTagList from "./components/FTagList.vue";
 </script>
 
 <style scoped>
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 3s ease;
+.fade-leave-active
+.fade-enter-active {
+    transition: opacity 0.5s ease;
 }
 
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
 }
+
 </style>

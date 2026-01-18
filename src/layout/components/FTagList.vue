@@ -1,7 +1,7 @@
 <template>
     <div class="tag-list">
         <el-tabs v-model="activeTab" type="card" closable @tab-remove="removeTab"
-        @tab-add="addTab" @tab-change="tabChange" style="flex: 1px;">
+        @tab-add="addTab" @edit="tabChange" style="flex: 1px;">
             <el-tab-pane v-for="(item, index) in tabList" :key="item.path" :label="item.name" :name="item.path">
             </el-tab-pane>
         </el-tabs>
@@ -60,7 +60,9 @@ const removeTab = (v: any) => {
            }
         })
     }
+    console.log('removeTab',tabList.value)
     userStore.tabList = tabList.value
+    router.push(activeTab.value)
 }
 const addTab = (tab:any) => {
     console.log(tab)
@@ -81,9 +83,15 @@ onBeforeRouteUpdate((to,from) => {
 })
 
 const tabChange = (tab:any) => {
-
-    activeTab.value = tab
-    router.push(tab)
+    console.log('change',tab,tabList.value)
+ 
+    // activeTab.value = tab
+//    if(tabList.value.length == 1){
+//     router.push('/')
+//    }else{
+//     router.push(tab)
+//    }
+    
 }
 
 </script>
